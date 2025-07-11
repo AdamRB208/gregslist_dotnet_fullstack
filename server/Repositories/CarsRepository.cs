@@ -1,3 +1,4 @@
+
 namespace gregslist_dotnet_fullstack.Repositories;
 
 public class CarsRepository
@@ -8,5 +9,21 @@ public class CarsRepository
   }
   private readonly IDbConnection _db;
 
-  
+  internal List<Car> GetCars()
+  {
+    string sql = @"
+    SELECT cars.*, accounts.*
+    FROM cars
+    INNER JOIN accounts ON accounts.id = cars.creator_id;";
+
+    List<Car> cars = _db.Query(sql, (Car car, Account account) =>
+    {
+      car.Creator = account;
+      return car;
+    }).ToList();
+    return cars;
+  }
+
+
+
 }

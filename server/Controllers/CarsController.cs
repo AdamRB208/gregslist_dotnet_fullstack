@@ -12,5 +12,17 @@ public class CarsController : ControllerBase
   private readonly CarsService _carsService;
   private readonly Auth0Provider _auth0Provider;
 
-  
+  [HttpGet]
+  public ActionResult<List<Car>> GetCars()
+  {
+    try
+    {
+      List<Car> cars = _carsService.GetCars();
+      return Ok(cars);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
 }

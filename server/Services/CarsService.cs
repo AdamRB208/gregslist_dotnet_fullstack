@@ -1,3 +1,4 @@
+
 namespace gregslist_dotnet_fullstack.Services;
 
 public class CarsService
@@ -8,5 +9,9 @@ public class CarsService
   }
   private readonly CarsRepository _carsRepository;
 
-  
+  internal List<Car> GetCars()
+  {
+    List<Car> cars = _carsRepository.GetCars();
+    return cars;
+  }
 }
