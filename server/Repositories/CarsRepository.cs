@@ -1,4 +1,5 @@
 
+
 namespace gregslist_dotnet_fullstack.Repositories;
 
 public class CarsRepository
@@ -24,6 +25,21 @@ public class CarsRepository
     return cars;
   }
 
+  internal Car GetCarById(int carId)
+  {
+    string sql = @"
+    SELECT cars.*, accounts.* 
+    FROM cars
+    INNER JOIN accounts ON accounts.id = cars.creator_id
+    WHERE cars.id = @carId;";
+
+    Car foundCar = _db.Query(sql, (Car car, Account account) =>
+    {
+      car.Creator = account;
+      return car;
+    }, new { carId }).SingleOrDefault();
+    return foundCar;
+  }
 
 
 }
