@@ -80,3 +80,50 @@ SET
 WHERE
     id = 1
 LIMIT 1;
+-- HOUSE SECTION STARTS HERE!!!!
+
+CREATE TABLE houses (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sqft INT NOT NULL,
+    bedrooms INT NOT NULL,
+    bathrooms DOUBLE NOT NULL,
+    imgUrl VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    price INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+    year INT UNSIGNED NOT NULL,
+    levels INT NOT NULL,
+    creator_id VARCHAR(255) NOT NULL,
+    FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE
+);
+
+INSERT INTO
+    houses (
+        sqft,
+        bedrooms,
+        bathrooms,
+        imgUrl,
+        description,
+        price,
+        year,
+        levels,
+        creator_id
+    )
+VALUES (
+        1650,
+        3,
+        2.5,
+        "https://media.istockphoto.com/id/168532965/photo/exterior-of-modern-home.webp?a=1&b=1&s=612x612&w=0&k=20&c=yiQRWjQ1akQO-MJS0Wzx9X4TOE4Hz4mBxZDNOuB1wDg=",
+        "A mid century home built in 1970",
+        200000,
+        1970,
+        1,
+        "67e592b83f3192a0a5480d98"
+    );
+
+SELECT * FROM houses;
+
+SELECT houses.*, accounts.*
+FROM houses
+    JOIN accounts ON houses.creator_id = accounts.id;
