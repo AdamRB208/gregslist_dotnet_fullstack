@@ -39,4 +39,21 @@ public class CarsController : ControllerBase
       return BadRequest(error.Message);
     }
   }
+
+  [Authorize]
+  [HttpPost]
+  public async Task<ActionResult<Car>> CreateCar([FromBody] Car carData)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      carData.CreatorId = userInfo.Id;
+      Car car = _carsService.CreateCar(carData);
+      return Ok(car);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
 }

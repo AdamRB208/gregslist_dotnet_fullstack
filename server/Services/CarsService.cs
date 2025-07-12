@@ -1,5 +1,8 @@
 
 
+
+using System.Threading.Tasks;
+
 namespace gregslist_dotnet_fullstack.Services;
 
 public class CarsService
@@ -26,7 +29,9 @@ public class CarsService
     return car;
   }
 
-
-
-
+  internal Car CreateCar(Car carData)
+  {
+    Car car = _carsRepository.CreateCar(carData);
+    return car;
+  }
 }
