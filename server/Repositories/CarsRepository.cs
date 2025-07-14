@@ -1,7 +1,3 @@
-
-
-
-
 namespace gregslist_dotnet_fullstack.Repositories;
 
 public class CarsRepository
