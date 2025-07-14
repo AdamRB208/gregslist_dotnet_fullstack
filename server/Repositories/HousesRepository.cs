@@ -56,4 +56,13 @@ public class HousesRepository
     }, houseData).SingleOrDefault();
     return house;
   }
+
+  internal void DeleteHouse(int houseId)
+  {
+    string sql = @"DELETE FROM houses WHERE id = @houseId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { houseId });
+    if (rowsAffected == 0) throw new Exception("Delete was unsuccessful!");
+    if (rowsAffected > 1) throw new Exception("Delete was too successful!");
+  }
 }
