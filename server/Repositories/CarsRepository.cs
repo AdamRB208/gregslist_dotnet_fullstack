@@ -1,6 +1,7 @@
 
 
 
+
 namespace gregslist_dotnet_fullstack.Repositories;
 
 public class CarsRepository
@@ -49,7 +50,7 @@ public class CarsRepository
     VALUES (@Make, @Model, @Year, @Price, @Color, @Mileage, @EngineType, @ImgUrl, @HasCleanTitle, @CreatorId);
     
     SELECT cars.*, accounts.* FROM cars INNER JOIN accounts ON accounts.id = cars.creator_id
-    WHERE cars.id = LAST_INSERT_ID;";
+    WHERE cars.id = LAST_INSERT_ID();";
 
     Car createdCar = _db.Query(sql, (Car car, Account account) =>
     {
@@ -57,5 +58,22 @@ public class CarsRepository
       return car;
     }, carData).SingleOrDefault();
     return createdCar;
+  }
+
+  internal void DeleteCar(int carId)
+  {
+    string sql = @"DELETE FROM cars WHERE id = @carID LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { carId });
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("NO ROWS WERE DELETED!");
+    }
+
+    if (rowsAffected > 1)
+    {
+      throw new Exception(rowsAffected + "ROWS WERE DELETED!");
+    }
   }
 }
