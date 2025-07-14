@@ -40,4 +40,27 @@ public class HousesService
     _housesRepository.DeleteHouse(houseId);
     return $"Deleted the {house.Description} {house.Year} listing!";
   }
+
+  internal House UpdateHouse(int houseId, House houseUpdateData, Account userInfo)
+  {
+    House house = GetHouseById(houseId);
+
+    if (house.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"YOU ARE NOT ALLOWED TO UPDATE SOMEONE ELSES HOUSE, {userInfo.Name.ToUpper()}!");
+    }
+
+    house.Sqft = houseUpdateData.Sqft ?? house.Sqft;
+    house.Bedrooms = houseUpdateData.Bedrooms ?? house.Bedrooms;
+    house.Bathrooms = houseUpdateData.Bathrooms ?? house.Bathrooms;
+    house.ImgUrl = houseUpdateData.ImgUrl ?? house.ImgUrl;
+    house.Description = houseUpdateData.Description ?? house.Description;
+    house.Price = houseUpdateData.Price ?? house.Price;
+    house.Year = houseUpdateData.Year ?? house.Year;
+    house.Levels = houseUpdateData.Levels ?? house.Levels;
+
+    _housesRepository.UpdateHouse(house);
+
+    return house;
+  }
 }

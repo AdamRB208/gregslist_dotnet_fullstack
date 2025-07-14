@@ -72,4 +72,20 @@ public class HousesController : ControllerBase
       return BadRequest(error.Message);
     }
   }
+
+  [Authorize]
+  [HttpPut("{houseId}")]
+  public async Task<ActionResult<House>> UpdateHouse(int houseId, [FromBody] House houseUpdateData)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      House house = _housesService.UpdateHouse(houseId, houseUpdateData, userInfo);
+      return Ok(house);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
 }
