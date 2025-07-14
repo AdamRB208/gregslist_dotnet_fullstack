@@ -1,9 +1,3 @@
-
-
-
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-
 namespace gregslist_dotnet_fullstack.Repositories;
 
 public class HousesRepository

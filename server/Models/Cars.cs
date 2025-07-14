@@ -8,11 +8,11 @@ public class Car
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
   [MinLength(3), MaxLength(30)] public string Make { get; set; }
-  public string Model { get; set; }
+  [MinLength(1), MaxLength(30)] public string Model { get; set; }
   [Range(1896, 2026)] public int? Year { get; set; }
-  public string Color { get; set; }
-  public int? Price { get; set; }
-  public int? Mileage { get; set; }
+  [MinLength(3), MaxLength(30)] public string Color { get; set; }
+  [Range(0, 5000000)] public int? Price { get; set; }
+  [Range(0, 400000)] public int? Mileage { get; set; }
   public string EngineType { get; set; }
   [Url, MaxLength(1000)] public string ImgUrl { get; set; }
   public bool? HasCleanTitle { get; set; }
