@@ -1,4 +1,5 @@
 
+
 namespace gregslist_dotnet_fullstack.Repositories;
 
 public class HousesRepository
@@ -24,5 +25,15 @@ public class HousesRepository
     return houses;
   }
 
+  internal House GetHouseById(int houseId)
+  {
+    string sql = @"SELECT houses.*, accounts.* FROM houses JOIN accounts ON houses.creator_id = accounts.id WHERE houses.id = @HouseId;";
 
+    House house = _db.Query(sql, (House house, Account account) =>
+    {
+      house.Creator = account;
+      return house;
+    }, new { houseId }).SingleOrDefault();
+    return house;
+  }
 }
