@@ -1,3 +1,4 @@
+
 namespace gregslist_dotnet_fullstack.Services;
 
 public class HousesService
@@ -10,5 +11,9 @@ public class HousesService
 
   private readonly HousesRepository _housesRepository;
 
-
+  internal List<House> GetHouses()
+  {
+    List<House> houses = _housesRepository.GetHouses();
+    return houses;
+  }
 }
