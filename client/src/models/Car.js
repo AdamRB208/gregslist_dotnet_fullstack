@@ -6,7 +6,7 @@ export class Car {
     this.imgUrl = data.imgUrl
     this.year = data.year
     this.price = data.price
-    this.description = data.description
+    this.mileage = data.mileage
     this.color = data.color
     this.engineType = data.engineType
     this.creatorId = data.creatorId

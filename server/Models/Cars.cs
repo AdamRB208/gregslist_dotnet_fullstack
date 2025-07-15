@@ -10,7 +10,7 @@ public class Car
   [MinLength(3), MaxLength(30)] public string Make { get; set; }
   [MinLength(1), MaxLength(30)] public string Model { get; set; }
   [Range(1896, 2026)] public int? Year { get; set; }
-  [MinLength(3), MaxLength(30)] public string Color { get; set; }
+  public string Color { get; set; }
   [Range(0, 5000000)] public int? Price { get; set; }
   [Range(0, 400000)] public int? Mileage { get; set; }
   public string EngineType { get; set; }

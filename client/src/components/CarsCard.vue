@@ -21,8 +21,7 @@ defineProps({
             <small>{{ carProp.createdAt.toLocaleDateString() }}</small>
           </div>
           <p class="fs-3">{{ '$' + carProp.price.toLocaleString() }}</p>
-          <p v-if="carProp.description">{{ carProp.description }}</p>
-          <p v-else>A lovely car</p>
+          <p v-if="carProp.mileage">Mileage: {{ carProp.mileage }}</p>
           <p>Engine: {{ carProp.engineType }}</p>
         </div>
         <div class="d-flex justify-content-between align-items-center">

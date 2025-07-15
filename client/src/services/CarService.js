@@ -12,6 +12,12 @@ class CarService {
     AppState.cars = cars
   }
 
+  async createCar(carData) {
+    const response = await api.post('api/cars', carData)
+    logger.log('Created Car!', response.data)
+    const car = new Car(response.data)
+    AppState.cars.push(car)
+  }
 
 }
 
