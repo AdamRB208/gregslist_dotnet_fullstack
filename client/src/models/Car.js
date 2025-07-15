@@ -10,8 +10,8 @@ export class Car {
     this.color = data.color
     this.engineType = data.engineType
     this.creatorId = data.creatorId
-    this.createdAt = data.createdAt
-    this.updatedAt = data.updatedAt
+    this.createdAt = new Date(data.createdAt)
+    this.updatedAt = new Date(data.updatedAt)
     this.creator = data.creator
   }
 }

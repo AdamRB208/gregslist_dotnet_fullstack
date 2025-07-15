@@ -1,10 +1,5 @@
 <script setup>
-import { AppState } from '@/AppState.js';
-import { computed } from 'vue';
 
-
-const account = computed(() => AppState.account)
-const cars = computed(() => AppState)
 </script>
 
 
@@ -12,7 +7,7 @@ const cars = computed(() => AppState)
 <section class="container-fluid">
   <div class="row">
     <div class="col-md-6">
-      Cars Page!
+      Houses Page!
     </div>
   </div>
 </section>

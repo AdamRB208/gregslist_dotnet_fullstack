@@ -21,9 +21,11 @@
                 Cars
               </button>
             </RouterLink>
-            <button class="btn btn-outline-vue fs-2" type="button">
-              Houses
-            </button>
+            <RouterLink :to="{ name: 'Houses' }">
+              <button class="btn btn-outline-vue fs-2" type="button">
+                Houses
+              </button>
+            </RouterLink>
           </div>
         </div>
       </div>
