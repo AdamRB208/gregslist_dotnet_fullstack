@@ -9,7 +9,7 @@ defineProps({
 
 
 <template>
-  <div class="row shadow-lg mb-4 car-border">
+  <div class="row shadow-lg mb-4 ms-2 me-2 car-border">
     <div class="col-md-5 px-0">
       <img :src="carProp.imgUrl" :alt="`A picture of a ${carProp.year} ${carProp.make} ${carProp.model}`" class="w-100">
     </div>
