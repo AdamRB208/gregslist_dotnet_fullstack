@@ -1,13 +1,13 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import CarsCard from '@/components/CarsCard.vue';
 import { carService } from '@/services/CarService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 
 
-const account = computed(() => AppState.account)
-const cars = computed(() => AppState)
+const car = computed(() => AppState.cars)
 
 onMounted(() => {
   getCars()
@@ -28,8 +28,8 @@ async function getCars() {
 <template>
   <section class="container-fluid">
     <div class="row">
-      <div class="col-md-6">
-        {{ cars }}
+      <div v-for="car in car" :key="car.id" class="col-12 mt-4">
+        <CarsCard :carProp="car" />
       </div>
     </div>
   </section>
