@@ -19,6 +19,14 @@ class CarService {
     AppState.cars.push(car)
   }
 
+  async deleteCar(carId) {
+    const response = await api.delete(`api/cars/${carId}`)
+    logger.log('Deleted Car!', response.data)
+    const car = AppState.cars
+    const carIndex = car.findIndex(car => car.id == carId)
+    car.splice(carIndex, 1)
+  }
+
 }
 
 export const carService = new CarService()

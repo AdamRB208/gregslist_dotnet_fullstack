@@ -1,10 +1,29 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { Car } from '@/models/Car.js';
+import { carService } from '@/services/CarService.js';
+import { Pop } from '@/utils/Pop.js';
+import { computed } from 'vue';
 
+const account = computed(() => AppState.account)
 
 defineProps({
   carProp: {type:Car, required: true}
 })
+
+async function deleteCar(carId) {
+  try {
+    const confirmed = await Pop.confirm('Are you sure you want to delete this car?', 'It will be gone forever!', 'Yes I am sure', 'No I have changed my mind')
+
+    if (!confirmed) {
+      return
+    }
+    await carService.deleteCar(carId)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 </script>
 
 
@@ -26,7 +45,8 @@ defineProps({
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <button class="btn btn-outline-danger" type="button">
+            <button v-if="carProp.creatorId == account?.id" @click="deleteCar(carProp.id)"
+              class="btn btn-outline-danger" type="button">
               Delete Car
             </button>
           </div>
