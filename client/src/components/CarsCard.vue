@@ -76,7 +76,6 @@ img {
 .car-border {
   border-style: solid;
   border-width: thick;
-  // NOTE accesses the color from the carProp
   border-color: v-bind('carProp.color');
 }
 </style>
