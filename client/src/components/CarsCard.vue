@@ -46,11 +46,13 @@ async function deleteCar(carId) {
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <button v-if="carProp.creatorId == account?.id" @click="deleteCar(carProp.id)"
-              class="btn btn-outline-danger" type="button">
+              class="btn btn-outline-danger mt-3" type="button">
               Delete Car
             </button>
+            <button class="btn btn-outline-primary ms-1 mt-3">Edit Listing
+            </button>
           </div>
-          <div class="d-flex align-items-center gap-3">
+          <div class="d-flex flex-row-reverse align-items-center gap-3 mt-3">
             <p class="mb-0">{{ carProp.creator.name }}</p>
             <img :src="carProp.creator.picture" alt="picture of the listings creator" class="creator-img">
           </div>
