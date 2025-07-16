@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import CreateHouseModal from '@/components/CreateHouseModal.vue';
 import HousesCard from '@/components/HousesCard.vue';
 import { houseService } from '@/services/HouseService.js';
 import { logger } from '@/utils/Logger.js';
@@ -34,7 +35,8 @@ async function getHouses() {
       <div class="d-flex justify-content-between mt-2">
         <h1>Houses</h1>
         <span v-if="account" class="d-flex justify-content-center">
-          <button class="btn btn-outline-vue" type="button">Create a House Listing</button>
+          <button class="btn btn-outline-vue" type="button" data-bs-toggle="modal"
+            data-bs-target="#CreateHouseModal">Create a House Listing</button>
         </span>
       </div>
       <div v-for="house in house" :key="house.id" class="col-12 mt-4">
@@ -42,6 +44,7 @@ async function getHouses() {
       </div>
     </div>
   </section>
+  <CreateHouseModal />
 </template>
 
 
