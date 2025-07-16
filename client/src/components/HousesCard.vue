@@ -54,8 +54,9 @@ async function deleteHouse(houseId) {
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <button v-if="houseProp.creatorId == account?.id" @click="deleteHouse(houseProp.id)"
-                class="btn btn-outline-danger" type="button">Delete
+                class="btn btn-outline-danger mt-3" type="button">Delete
                 Listing</button>
+              <button class="btn btn-outline-primary ms-1 mt-3">Edit Listing</button>
             </div>
             <div class="d-flex flex-row-reverse align-items-center gap-3 mt-3">
               <p class="mb-0">{{ houseProp.creator.name }}</p>
