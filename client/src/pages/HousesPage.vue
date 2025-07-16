@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import HousesCard from '@/components/HousesCard.vue';
 import { houseService } from '@/services/HouseService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -36,8 +37,8 @@ async function getHouses() {
           <button class="btn btn-outline-vue" type="button">Create a House Listing</button>
         </span>
       </div>
-      <div class="col-12 mt-4">
-        <div>{{ house }}</div>
+      <div v-for="house in house" :key="house.id" class="col-12 mt-4">
+        <HousesCard :houseProp="house" />
       </div>
     </div>
   </section>
