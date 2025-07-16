@@ -18,6 +18,14 @@ class HouseService {
     AppState.houses.push(house)
   }
 
+  async deleteHouse(houseId) {
+    const response = await api.delete(`api/houses/${houseId}`)
+    logger.log('Deleted House!', response.data)
+    const house = AppState.houses
+    const houseIndex = house.findIndex(house => house.id == houseId)
+    house.splice(houseIndex, 1)
+  }
+
 }
 
 export const houseService = new HouseService()
