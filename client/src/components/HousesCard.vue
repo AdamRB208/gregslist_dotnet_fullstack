@@ -31,7 +31,7 @@ async function deleteHouse(houseId) {
 
 
 <template>
-  <div class="row shadow-lg mb-4 house-border">
+  <div class="row shadow-lg mb-4 house-border ms-2 me-2">
     <div class="col-md-5 px-0">
       <img :src="houseProp.imgUrl" :alt="`a picture of a ${houseProp.year} ${houseProp.description}`"
         class="w-100 h-100">
@@ -57,10 +57,10 @@ async function deleteHouse(houseId) {
                 class="btn btn-outline-danger" type="button">Delete
                 Listing</button>
             </div>
-          </div>
-          <div class="d-flex flex-row-reverse align-items-center gap-3 mt-3">
-            <p class="mb-0">{{ houseProp.creator.name }}</p>
-            <img :src="houseProp.creator.picture" alt="profile picture of the listings creator" class="creator-img">
+            <div class="d-flex flex-row-reverse align-items-center gap-3 mt-3">
+              <p class="mb-0">{{ houseProp.creator.name }}</p>
+              <img :src="houseProp.creator.picture" alt="profile picture of the listings creator" class="creator-img">
+            </div>
           </div>
         </div>
       </div>

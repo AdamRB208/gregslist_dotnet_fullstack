@@ -52,7 +52,7 @@ async function deleteCar(carId) {
           </div>
           <div class="d-flex align-items-center gap-3">
             <p class="mb-0">{{ carProp.creator.name }}</p>
-            <img :src="carProp.creator.picture" alt="" class="creator-img">
+            <img :src="carProp.creator.picture" alt="picture of the listings creator" class="creator-img">
           </div>
         </div>
       </div>
