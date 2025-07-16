@@ -1,7 +1,14 @@
+import { logger } from "@/utils/Logger.js"
+import { api } from "./AxiosService.js"
+import { House } from "@/models/House.js"
+import { AppState } from "@/AppState.js"
 
 class HouseService {
-  getHouses() {
-    throw new Error('Method not implemented.');
+  async getHouses() {
+    const response = await api.get('api/houses')
+    logger.log('Got Houses!', response.data)
+    const house = response.data.map(pojo => new House(pojo))
+    AppState.houses = house
   }
 
 }
