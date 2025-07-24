@@ -4,6 +4,18 @@ import { Car } from "@/models/Car.js"
 import { AppState } from "@/AppState.js"
 
 class CarService {
+  async setActiveCar(activeCar) {
+    AppState.activeCar = activeCar
+    logger.log('active car', activeCar)
+  }
+
+  async editCar(carId, updatedCarData) {
+    const response = await api.put(`api/cars/${carId}`, updatedCarData)
+    logger.log('Updated Car!', response.data)
+    const car = AppState.cars
+    const index = car.findIndex(car => car.id == carId)
+    car.splice(index, 1, updatedCarData)
+  }
 
   async getCars() {
     const response = await api.get('api/cars')

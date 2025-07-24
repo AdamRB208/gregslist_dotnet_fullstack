@@ -4,12 +4,16 @@ import { Car } from '@/models/Car.js';
 import { carService } from '@/services/CarService.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
+import EditCarModal from './EditCarModal.vue';
+import { useRoute } from 'vue-router';
 
+const route = useRoute()
 const account = computed(() => AppState.account)
 
 defineProps({
   carProp: {type:Car, required: true}
 })
+
 
 async function deleteCar(carId) {
   try {
@@ -24,6 +28,20 @@ async function deleteCar(carId) {
     Pop.error(error);
   }
 }
+
+async function setActiveCar(car, carId) {
+  try {
+    AppState.activeCar = car
+    await carService.setActiveCar(car)
+    carId = route.params.carId || carId
+    AppState.activeCar.id = carId
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
+
 </script>
 
 
@@ -45,11 +63,13 @@ async function deleteCar(carId) {
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <button v-if="carProp.creatorId == account?.id" @click="deleteCar(carProp.id)"
+            <button v-if="account && carProp.creatorId == account?.id" @click="deleteCar(carProp.id)"
               class="btn btn-outline-danger mt-3" type="button">
               Delete Car
             </button>
-            <button class="btn btn-outline-primary ms-1 mt-3">Edit Listing
+            <button v-if="account && carProp.creatorId === account.id" @click="setActiveCar(carProp, carProp.id)"
+              class="btn btn-outline-primary ms-1 mt-3" data-bs-toggle="modal" data-bs-target="#EditCarModal">Edit
+              Listing
             </button>
           </div>
           <div class="d-flex flex-row-reverse align-items-center gap-3 mt-3">
@@ -60,6 +80,7 @@ async function deleteCar(carId) {
       </div>
     </div>
   </div>
+  <EditCarModal />
 </template>
 
 

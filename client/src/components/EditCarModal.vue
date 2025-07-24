@@ -1,10 +1,12 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { carService } from '@/services/CarService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-
+const account = computed(() => AppState.account)
+const car = computed(() => AppState.activeCar)
 
 const editableCarData = ref({
   make: '',
@@ -19,10 +21,9 @@ const editableCarData = ref({
   hasCleanTitle: ''
 })
 
-async function createCar() {
+async function editCar(carId) {
   try {
-    const carData = editableCarData.value
-    await carService.createCar(carData)
+    const updatedCarData = editableCarData.value
     editableCarData.value = {
       make: '',
       model: '',
@@ -35,10 +36,11 @@ async function createCar() {
       mileage: '',
       hasCleanTitle: ''
     }
+    await carService.editCar(carId, updatedCarData)
   }
   catch (error) {
-    Pop.error(error, 'COULD NOT CREATE CAR!');
-    logger.error('Could not create car!', error)
+    Pop.error(error, 'COULD NOT EDIT CAR!');
+    logger.log('Could not edit car!', error)
   }
 }
 
@@ -46,16 +48,16 @@ async function createCar() {
 
 
 <template>
-  <div class="modal" tabindex="-1" id="CreateCarModal">
+<div class="modal" tabindex="-1" id="EditCarModal">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div v-if="car" class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create a Car Listing</h5>
+          <h5 class="modal-title">Update Your Car Listing</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div v-if="account && car.creatorId === account.id" class="modal-body">
           <!-- Form Section Here!!! -->
-          <form @submit.prevent="createCar()">
+          <form @submit.prevent="editCar(car.id)">
             <div class="mb-3">
               <label for="carMake">Car Make</label>
               <input v-model="editableCarData.make" id="carMake" name="make" type="text" required maxlength="500"
@@ -111,7 +113,7 @@ async function createCar() {
               </div>
             </div>
             <div>
-              <button type="submit" class="btn btn-outline-vue">Post Car Listing</button>
+              <button type="submit" class="btn btn-outline-primary">Edit Car Listing</button>
             </div>
           </form>
         </div>
