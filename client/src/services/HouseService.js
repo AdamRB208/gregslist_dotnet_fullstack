@@ -4,6 +4,17 @@ import { House } from "@/models/House.js"
 import { AppState } from "@/AppState.js"
 
 class HouseService {
+  async editHouse(houseId, updatedHouseData) {
+    const response = await api.put(`api/houses/${houseId}`, updatedHouseData)
+    logger.log('Updated House!', response.data)
+    const house = AppState.houses
+    const index = house.findIndex(house => house.id === houseId)
+    house.splice(index, 1, updatedHouseData)
+  }
+  async setActiveHouse(activeHouse) {
+    AppState.activeHouse = activeHouse
+    logger.log('active house', activeHouse)
+  }
   async getHouses() {
     const response = await api.get('api/houses')
     logger.log('Got Houses!', response.data)

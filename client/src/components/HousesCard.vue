@@ -5,7 +5,10 @@ import { houseService } from '@/services/HouseService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import EditHouseModal from './EditHouseModal.vue';
 
+const route = useRoute()
 const account = computed(() => AppState.account)
 
 defineProps({
@@ -25,6 +28,13 @@ async function deleteHouse(houseId) {
     Pop.error(error, 'COULD NOT DELETE HOUSE!');
     logger.error('Could not delete House!', error)
   }
+}
+
+async function setActiveHouse(house, houseId) {
+  AppState.activeHouse = house
+  await houseService.setActiveHouse(house)
+  houseId = route.params.houseId || houseId
+  AppState.activeHouse.id = houseId
 }
 
 </script>
@@ -56,7 +66,10 @@ async function deleteHouse(houseId) {
               <button v-if="houseProp.creatorId == account?.id" @click="deleteHouse(houseProp.id)"
                 class="btn btn-outline-danger mt-3" type="button">Delete
                 Listing</button>
-              <button class="btn btn-outline-primary ms-1 mt-3">Edit Listing</button>
+              <button v-if="account && houseProp.creatorId === account.id"
+                @click="setActiveHouse(houseProp, houseProp.id)" class="btn btn-outline-primary ms-1 mt-3" type="button"
+                data-bs-toggle="modal" data-bs-target="#EditHouseModal">Edit
+                Listing</button>
             </div>
             <div class="d-flex flex-row-reverse align-items-center gap-3 mt-3">
               <p class="mb-0">{{ houseProp.creator.name }}</p>
@@ -67,6 +80,7 @@ async function deleteHouse(houseId) {
       </div>
     </div>
   </div>
+  <EditHouseModal />
 </template>
 
 

@@ -68,7 +68,8 @@ async function setActiveCar(car, carId) {
               Delete Car
             </button>
             <button v-if="account && carProp.creatorId === account.id" @click="setActiveCar(carProp, carProp.id)"
-              class="btn btn-outline-primary ms-1 mt-3" data-bs-toggle="modal" data-bs-target="#EditCarModal">Edit
+              class="btn btn-outline-primary ms-1 mt-3" type="button" data-bs-toggle="modal"
+              data-bs-target="#EditCarModal">Edit
               Listing
             </button>
           </div>
