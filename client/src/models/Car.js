@@ -8,6 +8,7 @@ export class Car {
     this.price = data.price
     this.mileage = data.mileage
     this.color = data.color
+    this.hasCleanTitle = data.hasCleanTitle
     this.engineType = data.engineType
     this.creatorId = data.creatorId
     this.createdAt = new Date(data.createdAt)

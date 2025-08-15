@@ -3,12 +3,12 @@ import { AppState } from '@/AppState.js';
 import { houseService } from '@/services/HouseService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const account = computed(() => AppState.account)
 const house = computed(() => AppState.activeHouse)
 
-const editableHouseData = ref({
+const editableHouseData = ref(AppState.activeHouse ?? {
   bedrooms: '',
   bathrooms: '',
   levels: '',
@@ -18,6 +18,10 @@ const editableHouseData = ref({
   description: '',
   sqft: ''
 })
+
+watch(() => AppState.activeHouse, () => {
+  editableHouseData.value = { ...AppState.activeHouse }
+}, { immediate: true })
 
 async function editHouse(houseId) {
   try {

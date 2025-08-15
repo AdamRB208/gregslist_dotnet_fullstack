@@ -3,12 +3,12 @@ import { AppState } from '@/AppState.js';
 import { carService } from '@/services/CarService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const account = computed(() => AppState.account)
 const car = computed(() => AppState.activeCar)
 
-const editableCarData = ref({
+const editableCarData = ref(AppState.activeCar ?? {
   make: '',
   model: '',
   price: '',
@@ -20,6 +20,10 @@ const editableCarData = ref({
   mileage: '',
   hasCleanTitle: ''
 })
+
+watch(() => AppState.activeCar, () => {
+  editableCarData.value = { ...AppState.activeCar }
+}, { immediate: true })
 
 async function editCar(carId) {
   try {
